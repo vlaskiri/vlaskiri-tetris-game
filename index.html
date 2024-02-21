@@ -7,13 +7,27 @@
 		<title>TETRIS</title>
 	</head>
 	<body>
-        <main class='main-grid'>
-            <!-- <div></div>
-            <div></div>
-            <div></div> -->
-        </main>
+		<div class="background-image">
+			<div class="music">
+				<audio id="audioPlayer" loop autoplay="true">
+					<source src="./assets/stranger-things-124008.mp3" />
+					Your browser does not support the audio element.
+				</audio>
 
+				<button id="toggleSoundButton">
+					<img
+						id="soundImage"
+						src="./assets/Speaker_Icon.svg.png"
+						alt="sound image"
+					/>
+				</button>
+			</div>
+		</div>
+		<main class="main-grid">
+			<!-- Matrix Tetris in JS file -->
+		</main>
 
 		<script src="index.js"></script>
+		<script src="audioPlayer.js"></script>
 	</body>
 </html>

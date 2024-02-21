@@ -3,19 +3,35 @@
 }
 
 body {
-	background: linear-gradient(45deg, rgb(221, 64, 64), rgb(195, 204, 75));
 	height: 100vh;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 }
 
+.background-image {
+	background-image: url('./assets/backFoto.avif');
+	height: 100vh;
+	width: 100vw;
+}
+
+.music {
+	display: flex;
+	flex-direction: row-reverse;
+	margin: 10px 10px 0 0;
+}
+
+#toggleSoundButton img {
+	width: clamp(15px, 4vw, 30px);
+}
+
 .main-grid {
+	position: fixed;
 	background: black;
 	padding: 0.5vh;
 	display: grid;
 	grid-template-columns: repeat(10, auto);
-    gap: 0.2vh;
+	gap: 0.2vh;
 }
 
 .main-grid > div {
@@ -26,9 +42,37 @@ body {
 }
 
 .main-grid .O {
-    background-color: red;
+	background-color: red;
 }
 
 .main-grid .J {
-    background-color: red;
+	background-color: red;
+}
+
+.main-grid .L {
+	background-color: red;
+}
+
+.main-grid .I {
+	background-color: red;
+}
+
+.main-grid .S {
+	background-color: red;
+}
+
+.main-grid .Z {
+	background-color: red;
+}
+
+.main-grid .T {
+	background-color: red;
+}
+
+.main-grid .U {
+	background-color: red;
+}
+
+.main-grid .X {
+	background-color: red;
 }
