@@ -9,19 +9,22 @@
 			href="https://fonts.googleapis.com/css2?family=Kode+Mono:wght@400..700&display=swap"
 			rel="stylesheet"
 		/>
+		<link rel="stylesheet" href="./styles/newReset.css" />
 		<link rel="stylesheet" href="./styles/index.css" />
 		<title>TETRIS</title>
 	</head>
 	<body>
 		<main class="main-block">
 			<div class="main-content">
+				<h1 class="title">TETRIS</h1>
+
 				<div class="main-grid">
 					<!-- Matrix Tetris in JS file -->
 				</div>
 
 				<div class="main-flex__scores-block">
 					<div class="circle">
-						<button class="pause-game"></button>
+						<button id="pause-game" class="pause-game"></button>
 					</div>
 
 					<div class="next-element">Next element</div>
@@ -36,9 +39,22 @@
 
 					<div class="music">
 						<audio id="audioPlayer" loop autoplay="true">
-							<source src="./assets/stranger-things-124008.mp3" />
+							<source src="./assets/sound-for-tetris.mp3" />
 							Your browser does not support the audio element.
 						</audio>
+
+						<h2>Music</h2>
+						<select id="soundSelect">
+							<option value="./assets/sound-for-tetris.mp3">
+								TRON Legacy - End of Line
+							</option>
+							<option value="./assets/stranger-things-124008.mp3">
+								Stranger Things
+							</option>
+							<option value="./assets/sound-for-tetris2.mp3">
+								TRON Legacy - End Titles
+							</option>
+						</select>
 
 						<button id="toggleSoundButton">
 							<img
@@ -73,9 +89,11 @@
 					</button>
 				</div>
 			</div>
+			<div class="overlay">
+				<button id="game-over-restart">Game Over 😟 Restart</button>
+			</div>
 		</main>
 
 		<script src="./javascript/index.js"></script>
-		<script src="./javascript/audioPlayer.js"></script>
 	</body>
 </html>

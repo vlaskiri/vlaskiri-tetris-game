@@ -1,12 +1,14 @@
+@font-face {
+	font-family: 'Tron';
+	src: url(../fonts/Tr2n.ttf) format('truetype');
+}
+
 * {
-	margin: 0;
-	font-family: 'Kode Mono', monospace;
+	user-select: none;
 }
 
 body {
 	height: 100vh;
-	width: 100vw;
-	background-image: url('../assets/backFoto.avif');
 }
 
 .main-block {
@@ -14,18 +16,30 @@ body {
 	justify-content: center;
 	align-items: center;
 	flex-direction: column;
-	height: 100vh;
-	width: 100vw;
+	height: 100dvh;
+	width: 100dvw;
+	background-image: url('../assets/images.jpg');
+	background-repeat: no-repeat;
+	background-size: cover;
 }
 
 .main-content {
-	height: 100vh;
-	width: 100vw;
 	display: flex;
 	gap: 20px;
 	justify-content: center;
 	align-items: center;
 }
+
+.title {
+	font-family: 'Tron', sans-serif;
+	color: rgb(17, 227, 235);
+	margin: 0 90px 0 -100px;
+	font-size: clamp(18px, 6vw, 82px);
+	writing-mode: vertical-rl;
+	text-orientation: upright;
+	letter-spacing: 20px;
+}
+
 .main-grid {
 	background: rgb(12, 4, 116);
 	padding: 0.5vh;
@@ -37,10 +51,10 @@ body {
 }
 
 .main-grid > div {
-	height: min(4vh, 7vw);
-	width: min(4vh, 7vw);
+	height: min(3.5vh, 6vw);
+	width: min(3.5vh, 6vw);
 	background-color: rgba(4, 25, 82, 0.466);
-	border-radius: 0.3vh;
+	border-radius: 1vh;
 }
 
 .main-flex__scores-block {
@@ -48,13 +62,37 @@ body {
 	flex-direction: column;
 	justify-content: space-around;
 	align-items: center;
-	color: white;
-	gap: 10px;
+	color: rgb(255, 255, 255);
+	gap: 40px;
 	border: 3px solid rgb(6, 192, 199);
 	border-radius: 6px;
-	height: 85vh;
 	background-color: rgba(4, 25, 82, 0.911);
 	padding: 0 10px;
+	width: clamp(90px, 50%, 180px);
+}
+
+.circle,
+.next-element,
+.all-time-game,
+.all-score,
+.music {
+	font-family: 'Tron', sans-serif;
+	margin: 3vh 2vw;
+	height: min(2vh, 3vw);
+	width: clamp(70px, 12vw, 130px);
+	text-align: center;
+}
+
+.all-time-game {
+	margin: 0;
+}
+
+.next-element {
+	margin: 0 2vw 3vh;
+}
+
+.all-time-game p {
+	letter-spacing: 4px;
 }
 
 .circle {
@@ -62,16 +100,15 @@ body {
 	border-radius: 100%;
 	width: 60px;
 	height: 60px;
-	/* clip-path: polygon(100% 0%, 100% 50%, 100% 100%, -100% 0%); */
-	/* box-shadow: -3px 2px 20px 0px rgb(17, 227, 235); */
 	box-shadow: 0px 0px 20px 2px rgb(17, 227, 235);
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	/* transform: rotate(75deg); */
+	margin: 3vh 2vw 0;
 }
 
-.pause-game {
+.pause-game,
+.play-game {
 	cursor: pointer;
 	width: 24px;
 	height: 50px;
@@ -82,7 +119,6 @@ body {
 	align-items: center;
 	gap: 4px;
 	padding: 0 4px;
-	/* transform: rotate(-75deg); */
 }
 
 .pause-game::before,
@@ -94,15 +130,22 @@ body {
 	box-shadow: 0px 0px 10px 2px rgb(17, 227, 235);
 }
 
-.next-element {
+.play-game::before {
+	content: '';
+	width: 10px;
+	height: 25px;
+	border-style: solid;
+	border-width: 15px 0 15px 25px;
+	border-color: transparent transparent transparent rgb(17, 227, 235);
+	margin-right: -5px;
 }
 
-.all-time-game {
-	text-align: center;
-}
-
-.all-score {
-	text-align: center;
+.next-element,
+.all-time-game,
+.all-score,
+.music h2 {
+	text-shadow: 3px -5px 5px rgb(0, 247, 255);
+	font-size: clamp(10px, 14px, 20px);
 }
 
 .all-score p {
@@ -111,12 +154,32 @@ body {
 }
 
 .music {
+	margin: 0 2vw 11vh;
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+}
+
+#soundSelect {
+	font-family: 'Tron', sans-serif;
+	width: clamp(70px, 12vw, 130px);
+	color: rgb(255, 255, 255);
+	background-color: transparent;
+	font-size: 16px;
+	border: 1px solid rgba(4, 25, 82, 0.911);
+	border-radius: 5px;
+	outline: none;
+	pointer-events: auto;
+	cursor: pointer;
+}
+
+#soundSelect option {
+	background-color: rgba(4, 25, 82, 0.911);
 }
 
 #toggleSoundButton {
 	cursor: pointer;
 	background-color: transparent;
-	border: none;
 }
 
 #toggleSoundButton img {
@@ -133,9 +196,9 @@ body {
 
 .move-control {
 	width: clamp(300px, 30vw, 500px);
-	color: white;
 	display: grid;
-	justify-items: center;
+	justify-content: center;
+	place-items: center;
 	grid-template-columns: 80px 80px 80px;
 	grid-template-rows: 1fr 1fr;
 	grid-template-areas:
@@ -190,7 +253,10 @@ body {
 
 .restart-game {
 	border: none;
-	padding-right: 40px;
+	padding: 40px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 .restart-game button {
@@ -236,40 +302,59 @@ body {
 	transform: rotate(-25deg);
 }
 
+.overlay {
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.637);
+	display: none;
+	align-items: center;
+	justify-content: center;
+}
+
+#game-over-restart {
+	font-family: 'Tron', sans-serif;
+	width: 50vw;
+	border-radius: 20px;
+	color: rgb(0, 247, 255);
+	background-color: rgba(4, 25, 82, 0.911);
+	font-size: clamp(18px, 4vw, 54px);
+}
+
 /* -------------------------------------------------------------- */
 
 .main-grid .O {
-	background-color: red;
+	background-color: rgb(0, 128, 255);
 }
 
 .main-grid .J {
-	background-color: red;
+	background-color: rgb(255, 255, 255);
 }
 
 .main-grid .L {
-	background-color: red;
+	background-color: rgb(175, 174, 174);
 }
 
 .main-grid .I {
-	background-color: red;
+	background-color: rgb(125, 255, 248);
 }
 
 .main-grid .S {
-	background-color: red;
+	background-color: rgb(0, 255, 0);
 }
 
 .main-grid .Z {
-	background-color: red;
+	background-color: rgb(255, 0, 255);
 }
 
 .main-grid .T {
-	background-color: red;
+	background-color: rgb(255, 255, 0);
 }
 
 .main-grid .U {
-	background-color: red;
+	background-color: rgb(229, 119, 0);
 }
 
 .main-grid .X {
-	background-color: red;
+	background-color: rgb(153, 255, 0);
 }
