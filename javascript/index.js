@@ -1,74 +1,30 @@
-// Дизайн гри зробити під фільм Трон
-
-// Окрема кнопка рестарт (Виконано)
-// Клавіатура на екрані браузеру (Виконано)
-// Завершити кнопку рестарт після кінця гри (Виконано)
-// Допрацювати код для адекватного виведення блоку кінця гри (Виконано)
-
-// Зробити час гри, показувати наступний елемент, зробити кращий дизайн і візуал по усій грі
-// Реалізація найкращого результату у грі
-// Збільшення швидкості
-
-// Музика
-document.addEventListener('DOMContentLoaded', function () {
-	let audioPlayer = document.getElementById('audioPlayer');
-	let toggleSoundButton = document.getElementById('toggleSoundButton');
-	let soundImage = document.getElementById('soundImage');
-	let soundSelect = document.getElementById('soundSelect');
-
-	// Play/Pause Sound Button
-	toggleSoundButton.addEventListener('click', function () {
-		if (audioPlayer.paused) {
-			audioPlayer.play();
-			soundImage.src = './assets/unmuteIcon.png';
-		} else {
-			audioPlayer.pause();
-			soundImage.src = './assets/muteIcon1.png';
-		}
-	});
-
-	// Зміна треку
-	soundSelect.addEventListener('change', function () {
-		let selectedSound = soundSelect.value;
-		audioPlayer.src = selectedSound;
-		audioPlayer.play();
-	});
-});
-
-// --------------------------------------------------------------------------- //
-// Пауза
-let pauseGame = document.getElementById('pause-game');
-
-pauseGame.addEventListener('click', () => {
-	if (pauseGame.classList.contains('play-game')) {
-		pauseGame.classList.remove('play-game');
-		pauseGame.classList.add('pause-game');
-		audioPlayer.play();
-		togglePauseGame();
-	} else {
-		pauseGame.classList.remove('pause-game');
-		pauseGame.classList.add('play-game');
-		audioPlayer.pause();
-		togglePauseGame();
-	}
-});
-
-// --------------------------------------------------------------------------- //
-// Таймер
-
-// --------------------------------------------------------------------------- //
-
 const PLAY_FIELD_COLUMNS = 10;
 const PLAY_FIELD_ROWS = 20;
 const restartGame = document.getElementById('restart-game');
 const gameOverRestart = document.getElementById('game-over-restart');
-const overlay = document.querySelector('.overlay');
+const overlayGameOver = document.querySelector('.overlay__game-over');
+const overlayPause = document.querySelector('.overlay__pause');
 let isGameOver = false;
 let timeID = null;
 let isPaused = false;
 let playField;
 let tetromino;
 let intervalId; // Змінна для зберігання інтервалу
+let nextElement = document.querySelector('.next-element__block');
+// Таймер
+let timerValue = document.getElementById('timer');
+let startTime = null;
+let elapsedTime = 0;
+let timerInterval = null;
+let isTimerRunning = false;
+// Пауза
+let pauseGame = document.getElementById('pause-game');
+let escBtn = document.getElementById('pause');
+// Функціонал роботи з стрілками (клавіатура, мишка, утримування кнопки миші)
+let up = document.getElementById('up');
+let down = document.getElementById('down');
+let left = document.getElementById('left');
+let right = document.getElementById('right');
 
 const TETROMINO_NAMES = ['O', 'J', 'L', 'I', 'S', 'Z', 'T', 'U', 'X'];
 const TETROMINOES = {
@@ -119,15 +75,107 @@ const TETROMINOES = {
 	],
 };
 let cells;
-init();
 
-// Функціонал роботи з стрілками (клавіатура, мишка, утримування кнопки миші)
-let up = document.getElementById('up');
-let down = document.getElementById('down');
-let left = document.getElementById('left');
-let right = document.getElementById('right');
+// Музика
+document.addEventListener('DOMContentLoaded', function () {
+	let audioPlayer = document.getElementById('audioPlayer');
+	let toggleSoundButton = document.getElementById('toggleSoundButton');
+	let soundImage = document.getElementById('soundImage');
+	let soundSelect = document.getElementById('soundSelect');
+
+	// Play/Pause Sound Button
+	toggleSoundButton.addEventListener('click', function () {
+		if (audioPlayer.paused) {
+			audioPlayer.play();
+			soundImage.src = './assets/unmuteIcon.png';
+		} else {
+			audioPlayer.pause();
+			soundImage.src = './assets/muteIcon1.png';
+		}
+	});
+
+	// Зміна треку
+	soundSelect.addEventListener('change', function () {
+		let selectedSound = soundSelect.value;
+		audioPlayer.src = selectedSound;
+		audioPlayer.play();
+	});
+});
+
+// --------------------------------------------------------------------------- //
+// Таймер
+
+function timer() {
+	let currentDate = new Date().getTime();
+	elapsedTime = currentDate - startTime;
+
+	let hours = Math.floor((elapsedTime % (1000 * 3600 * 24)) / (1000 * 3600));
+	let minutes = Math.floor((elapsedTime % (1000 * 3600)) / (1000 * 60));
+	let seconds = Math.floor((elapsedTime % (1000 * 60)) / 1000);
+
+	// Години, хвилини і секунди
+	function pad(unit) {
+		return unit < 10 ? '0' + unit : unit;
+	}
+
+	seconds = pad(seconds);
+	minutes = pad(minutes);
+	hours = pad(hours);
+
+	timerValue.innerText = `${hours}:${minutes}:${seconds}`;
+}
+
+function pause() {
+	clearInterval(timerInterval);
+	timerInterval = null;
+	isTimerRunning = false;
+}
+
+function start() {
+	if (isTimerRunning) {
+		pause();
+	} else {
+		startTime = new Date().getTime() - elapsedTime;
+		timerInterval = setInterval(timer, 10);
+		isTimerRunning = true;
+	}
+}
+
+function reset() {
+	pause();
+	elapsedTime = 0;
+	timerValue.innerText = '00:00:00';
+}
+
+// --------------------------------------------------------------------------- //
+// Пауза
+
+function pauseEsc() {
+	if (pauseGame.classList.contains('play-game')) {
+		pauseGame.classList.remove('play-game');
+		pauseGame.classList.add('pause-game');
+		audioPlayer.play();
+		togglePauseGame();
+		start();
+		start();
+		overlayPause.style.display = 'none';
+	} else {
+		pauseGame.classList.remove('pause-game');
+		pauseGame.classList.add('play-game');
+		audioPlayer.pause();
+		togglePauseGame();
+		pause();
+		overlayPause.style.display = 'flex';
+	}
+}
+
+pauseGame.addEventListener('click', pauseEsc);
+escBtn.addEventListener('click', pauseEsc);
+
+// --------------------------------------------------------------------------- //
 
 function init() {
+	start();
 	audioPlayer.play();
 	score.querySelector('p').innerHTML = '000000'; // Оновлюємо значення в HTML
 	isGameOver = false;
@@ -135,19 +183,32 @@ function init() {
 	generateTetromino();
 	cells = document.querySelectorAll('.main-grid div');
 	moveDown();
+	displayNextTetromino(); //
 }
 
+init();
+
 // Оновлення поля, почати спочатку
-restartGame.addEventListener('click', () => {
+restartGame.addEventListener('click', function (event) {
+	event.preventDefault();
 	document.querySelector('.main-grid').innerHTML = '';
-	overlay.style.display = 'none';
+	overlayGameOver.style.display = 'none';
+
+	if (pauseGame.classList.contains('play-game')) {
+		pauseGame.classList.remove('play-game');
+		pauseGame.classList.add('pause-game');
+		togglePauseGame();
+	}
+
+	reset();
 	init();
 });
 
 // Оновлення поля після програшу, почати спочатку
 gameOverRestart.addEventListener('click', function () {
 	document.querySelector('.main-grid').innerHTML = '';
-	overlay.style.display = 'none';
+	overlayGameOver.style.display = 'none';
+	reset();
 	init();
 });
 
@@ -189,6 +250,37 @@ function generateTetromino() {
 		row,
 		column,
 	};
+
+	displayNextTetromino(); //
+}
+
+// Функція генерації наступної фігури
+//
+function displayNextTetromino() {
+	// Генеруємо наступну фігуру
+	const tetroNameLength = TETROMINO_NAMES.length - 1;
+
+	const name = TETROMINO_NAMES[randomIndexTetroName(0, tetroNameLength)];
+	const matrix = TETROMINOES[name];
+
+	let nextTetromino = {
+		name,
+		matrix,
+	};
+
+	nextElement.innerHTML = '';
+
+	for (let row = 0; row < 4; row++) {
+		for (let column = 0; column < 4; column++) {
+			const cell = document.createElement('div');
+			cell.classList.add('next-tetromino-cell');
+			if (matrix[row] && matrix[row][column]) {
+				cell.classList.add(nextTetromino.name);
+			}
+
+			nextElement.appendChild(cell);
+		}
+	}
 }
 
 function isOutsideOfTopboard(row) {
@@ -250,9 +342,6 @@ function clearLines() {
 
 	updateScore(linesCleared);
 }
-
-// generatePlayField();
-// generateTetromino();
 
 function drawPlayField() {
 	for (let row = 0; row < PLAY_FIELD_ROWS; row++) {
@@ -321,8 +410,6 @@ function rotateTetromino() {
 		tetromino.matrix = oldMatrix;
 	}
 }
-
-// draw();
 
 // Функція обертання фігури і перемальовування поля
 function rotate() {
@@ -407,8 +494,10 @@ right.addEventListener('mouseup', () => {
 function togglePauseGame() {
 	if (isPaused === false) {
 		stopMoveDown();
+		pause();
 	} else {
 		startMoveDown();
+		start();
 	}
 	isPaused = !isPaused;
 }
@@ -424,14 +513,23 @@ function dropTetrominoDown() {
 // Гра закінчена
 function gameOver() {
 	stopMoveDown();
-	overlay.style.display = 'flex';
+	overlayGameOver.style.display = 'flex';
+	pause();
 }
 
 // Управління фігурами на полі
+// Вимкнення превентивної поведінки натискання на пробіл (виділення останньої натиснутої кнопки і натискання на неї)
+window.addEventListener('keydown', function (event) {
+	if (event.key === ' ' && !restartGame.disabled) {
+		event.preventDefault();
+		dropTetrominoDown();
+	}
+});
+
 document.addEventListener('keydown', onKeyDown);
 function onKeyDown(e) {
 	if (e.key == 'Escape') {
-		togglePauseGame();
+		pauseEsc();
 	}
 
 	if (!isPaused) {
@@ -479,8 +577,6 @@ function moveDown() {
 		gameOver();
 	}
 }
-
-// moveDown();
 
 function startMoveDown() {
 	if (!timeID) {

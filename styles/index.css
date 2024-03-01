@@ -57,6 +57,13 @@ body {
 	border-radius: 1vh;
 }
 
+.next-element__block > div {
+	height: min(2.5vh, 2vw);
+	width: min(2.5vh, 2vw);
+	/* background-color: rgba(4, 25, 82, 0.466); */
+	border-radius: 1vh;
+}
+
 .main-flex__scores-block {
 	display: flex;
 	flex-direction: column;
@@ -78,7 +85,6 @@ body {
 .music {
 	font-family: 'Tron', sans-serif;
 	margin: 3vh 2vw;
-	height: min(2vh, 3vw);
 	width: clamp(70px, 12vw, 130px);
 	text-align: center;
 }
@@ -89,6 +95,23 @@ body {
 
 .next-element {
 	margin: 0 2vw 3vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 6px;
+}
+
+.next-element__block {
+	width: 122px;
+	height: 116px;
+	background: rgb(12, 4, 116);
+	padding: 0.5vh;
+	display: grid;
+	grid-template-columns: repeat(4, auto);
+	gap: 0.2vh;
+	border: 4px solid rgb(6, 192, 199);
+	border-radius: 6px;
 }
 
 .all-time-game p {
@@ -141,11 +164,11 @@ body {
 }
 
 .next-element,
-.all-time-game,
 .all-score,
+.all-time-game,
 .music h2 {
 	text-shadow: 3px -5px 5px rgb(0, 247, 255);
-	font-size: clamp(10px, 14px, 20px);
+	font-size: clamp(14px, 18px, 24px);
 }
 
 .all-score p {
@@ -154,7 +177,7 @@ body {
 }
 
 .music {
-	margin: 0 2vw 11vh;
+	margin: 0 2vw 5vh;
 	display: flex;
 	flex-direction: column;
 	gap: 8px;
@@ -302,7 +325,8 @@ body {
 	transform: rotate(-25deg);
 }
 
-.overlay {
+.overlay__game-over,
+.overlay__pause {
 	position: fixed;
 	width: 100%;
 	height: 100%;
@@ -312,7 +336,8 @@ body {
 	justify-content: center;
 }
 
-#game-over-restart {
+#game-over-restart,
+#pause {
 	font-family: 'Tron', sans-serif;
 	width: 50vw;
 	border-radius: 20px;
@@ -323,38 +348,47 @@ body {
 
 /* -------------------------------------------------------------- */
 
-.main-grid .O {
+.main-grid .O,
+.next-element__block .O {
 	background-color: rgb(0, 128, 255);
 }
 
-.main-grid .J {
+.main-grid .J,
+.next-element__block .J {
 	background-color: rgb(255, 255, 255);
 }
 
-.main-grid .L {
+.main-grid .L,
+.next-element__block .L {
 	background-color: rgb(175, 174, 174);
 }
 
-.main-grid .I {
+.main-grid .I,
+.next-element__block .I {
 	background-color: rgb(125, 255, 248);
 }
 
-.main-grid .S {
+.main-grid .S,
+.next-element__block .S {
 	background-color: rgb(0, 255, 0);
 }
 
-.main-grid .Z {
+.main-grid .Z,
+.next-element__block .Z {
 	background-color: rgb(255, 0, 255);
 }
 
-.main-grid .T {
+.main-grid .T,
+.next-element__block .T {
 	background-color: rgb(255, 255, 0);
 }
 
-.main-grid .U {
+.main-grid .U,
+.next-element__block .U {
 	background-color: rgb(229, 119, 0);
 }
 
-.main-grid .X {
+.main-grid .X,
+.next-element__block .X {
 	background-color: rgb(153, 255, 0);
 }

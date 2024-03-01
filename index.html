@@ -27,10 +27,13 @@
 						<button id="pause-game" class="pause-game"></button>
 					</div>
 
-					<div class="next-element">Next element</div>
+					<div class="next-element">
+						Next element
+						<div class="next-element__block"></div>
+					</div>
 					<div class="all-time-game">
 						<span>Time</span>
-						<p>00:00:00</p>
+						<p id="timer">00:00:00</p>
 					</div>
 					<div id="score" class="all-score">
 						Score
@@ -89,8 +92,11 @@
 					</button>
 				</div>
 			</div>
-			<div class="overlay">
+			<div class="overlay__game-over">
 				<button id="game-over-restart">Game Over 😟 Restart</button>
+			</div>
+			<div class="overlay__pause">
+				<button id="pause">Pause 😟 Continue</button>
 			</div>
 		</main>
 
