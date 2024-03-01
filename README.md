@@ -1,6 +1,10 @@
 # Tetris App
+___
+RESULT - https://vlaskiri.github.io/vlaskiri-tetris-game/
+___
 
-# Marathon "Tetris Game" by CyberBionic Systematics (The marathon language is Ukrainian)
+# Marathon "Tetris Game" by CyberBionic Systematics
+# P.S. The marathon language is Ukrainian
 
 We have six online sessions ahead of us during which you will gain cool practice working with HTML & CSS and JavaScript, and will write the Tetris game.
 
@@ -23,4 +27,21 @@ Lesson №6: Final Session. Review of Works, Feedback, and Answers to Questions.
 
 ___
 
-My Result: https://vlaskiri.github.io/vlaskiri-tetris-game/
+# Keyboard shortcuts for the Tetris game
+## Left arrow (Стрілка вліво)
+Used to shift the piece to the left by one position.
+
+## Right arrow (Стрілка вправо)
+Used to shift the piece to the right by one position.
+
+## Up arrow (Стрілка вверх)
+Used to rotate the piece.
+
+## Down arrow (Стрілка вниз)
+Used for accelerating the downward movement of the piece.
+
+## Space (Пробіл)
+Used for instantly dropping the piece to the bottom of the field.
+
+## Ecs (Escape)
+Used for pausing/resuming the game.
