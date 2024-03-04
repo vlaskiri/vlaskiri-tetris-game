@@ -23,7 +23,7 @@ Lesson №5: Game Mechanics. Creating Pause, Figure Drop on Spacebar Press, Game
 </br>
 [Part 2](https://www.youtube.com/watch?v=foxnNNwZyi4)
 
-Lesson №6: Final Session. Review of Works, Feedback, and Answers to Questions.
+[Lesson №6](https://www.youtube.com/watch?v=dlQB4xeXqyU): Final Session. Review of Works, Feedback, and Answers to Questions.
 
 ___
 
